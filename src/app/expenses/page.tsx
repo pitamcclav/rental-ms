@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Plus, Pencil, Trash2, Receipt } from "lucide-react"
 import { toast } from "sonner"
+import { formatCurrency } from "@/lib/utils"
 
 type Expense = {
   id: string
@@ -285,7 +286,7 @@ export default function ExpensesPage() {
             <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${getTotalExpenses().toFixed(2)}</div>
+            <div className="text-2xl font-bold">{formatCurrency(getTotalExpenses())}</div>
             <p className="text-xs text-muted-foreground">All time</p>
           </CardContent>
         </Card>
@@ -340,7 +341,7 @@ export default function ExpensesPage() {
                     <TableCell>
                       <Badge variant="outline">{expense.category}</Badge>
                     </TableCell>
-                    <TableCell className="font-bold">${expense.amount.toString()}</TableCell>
+                    <TableCell className="font-bold">{formatCurrency(expense.amount.toString())}</TableCell>
                     <TableCell className="text-right space-x-2">
                       <Button
                         variant="ghost"

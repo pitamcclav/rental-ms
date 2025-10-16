@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Plus, DollarSign, AlertTriangle } from "lucide-react"
 import { toast } from "sonner"
+import { formatCurrency } from "@/lib/utils"
 
 type Payment = {
   id: string
@@ -312,7 +313,7 @@ export default function PaymentsPage() {
                       <TableRow key={payment.id}>
                         <TableCell className="font-medium">{payment.tenant.name}</TableCell>
                         <TableCell>{payment.unit.name}</TableCell>
-                        <TableCell className="font-bold">${payment.amount.toString()}</TableCell>
+                        <TableCell className="font-bold">{formatCurrency(payment.amount.toString())}</TableCell>
                         <TableCell>{new Date(payment.paymentDate).toLocaleDateString()}</TableCell>
                         <TableCell className="text-xs text-muted-foreground">
                           {new Date(payment.periodStart).toLocaleDateString()} - {new Date(payment.periodEnd).toLocaleDateString()}
@@ -355,7 +356,7 @@ export default function PaymentsPage() {
                         <TableCell className="font-medium">{payment.tenantName}</TableCell>
                         <TableCell>{payment.unitName}</TableCell>
                         <TableCell className="text-muted-foreground">{payment.propertyName}</TableCell>
-                        <TableCell className="font-bold">${payment.rentAmount.toString()}</TableCell>
+                        <TableCell className="font-bold">{formatCurrency(payment.rentAmount.toString())}</TableCell>
                         <TableCell>{new Date(payment.nextDueDate).toLocaleDateString()}</TableCell>
                       </TableRow>
                     ))}
@@ -398,7 +399,7 @@ export default function PaymentsPage() {
                         <TableCell className="font-medium">{payment.tenantName}</TableCell>
                         <TableCell>{payment.unitName}</TableCell>
                         <TableCell className="text-muted-foreground">{payment.propertyName}</TableCell>
-                        <TableCell className="font-bold">${payment.rentAmount.toString()}</TableCell>
+                        <TableCell className="font-bold">{formatCurrency(payment.rentAmount.toString())}</TableCell>
                         <TableCell>{new Date(payment.nextDueDate).toLocaleDateString()}</TableCell>
                         <TableCell>
                           <Badge variant="destructive">

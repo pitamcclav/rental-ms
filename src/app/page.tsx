@@ -3,11 +3,12 @@ import { Building2, Home, Users, DollarSign } from "lucide-react"
 import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { formatCurrency } from "@/lib/utils"
 
 export const dynamic = 'force-dynamic'
 
 export default async function Dashboard() {
-  const [propertyCount, unitCount, tenantCount, recentPayments] = await Promise.all([
+  const [propertyCount, unitCount, tenantCount, recentPayments, totalRevenue, totalExpenses] = await Promise.all([
     prisma.property.count(),
     prisma.unit.count(),
     prisma.tenant.count({ where: { status: 'active' } }),
@@ -19,7 +20,19 @@ export default async function Dashboard() {
         unit: { include: { property: true } },
       },
     }),
+    prisma.payment.aggregate({
+      _sum: {
+        amount: true,
+      },
+    }),
+    prisma.expense.aggregate({
+      _sum: {
+        amount: true,
+      },
+    }),
   ])
+
+  const netRevenue = Number(totalRevenue._sum.amount || 0) - Number(totalExpenses._sum.amount || 0)
 
   return (
     <div className="space-y-8">
@@ -61,12 +74,12 @@ export default async function Dashboard() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Recent Payments</CardTitle>
+            <CardTitle className="text-sm font-medium">Net Revenue</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{recentPayments.length}</div>
-            <p className="text-xs text-muted-foreground">Last 5 payments</p>
+            <div className="text-2xl font-bold">{formatCurrency(netRevenue)}</div>
+            <p className="text-xs text-muted-foreground">Revenue minus expenses</p>
           </CardContent>
         </Card>
       </div>
@@ -90,7 +103,7 @@ export default async function Dashboard() {
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-sm">${payment.amount.toString()}</p>
+                    <p className="font-bold text-sm">{formatCurrency(payment.amount.toString())}</p>
                     <p className="text-xs text-muted-foreground">
                       {new Date(payment.paymentDate).toLocaleDateString()}
                     </p>

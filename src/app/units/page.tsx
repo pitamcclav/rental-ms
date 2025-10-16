@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Plus, Pencil, Trash2, Home } from "lucide-react"
 import { toast } from "sonner"
+import { formatCurrency } from "@/lib/utils"
 
 type Unit = {
   id: string
@@ -188,14 +189,14 @@ export default function UnitsPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="code">Unit Code</Label>
+                  <Label htmlFor="code">Unit Code (Optional)</Label>
                   <Input
                     id="code"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    placeholder="e.g., A101"
-                    required
+                    placeholder="Leave blank to auto-generate (e.g., UNIT-0001)"
                   />
+                  <p className="text-xs text-muted-foreground">Auto-generated if left blank</p>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="name">Unit Name</Label>
@@ -274,7 +275,7 @@ export default function UnitsPage() {
                     <TableCell className="font-medium">{unit.code}</TableCell>
                     <TableCell>{unit.name}</TableCell>
                     <TableCell className="text-muted-foreground">{unit.property.name}</TableCell>
-                    <TableCell>${unit.rentAmount.toString()}</TableCell>
+                    <TableCell>{formatCurrency(unit.rentAmount.toString())}</TableCell>
                     <TableCell>
                       <Badge variant={unit.status === "occupied" ? "default" : "secondary"}>
                         {unit.status}

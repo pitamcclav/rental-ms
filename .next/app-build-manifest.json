@@ -56,10 +56,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/payments/upcoming/route.js"
     ],
-    "/_not-found/page": [
+    "/expenses/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/expenses/page.js"
+    ],
+    "/api/expenses/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/expenses/route.js"
     ]
   }
 }

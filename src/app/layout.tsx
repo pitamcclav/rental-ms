@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <div className="min-h-screen bg-background">
           <Navigation />
-          <main className="container mx-auto px-4 py-8">
+          <main className="pt-20 lg:pt-8 lg:ml-64 px-4 pb-4 sm:px-6 sm:pb-6 lg:px-8 lg:pb-8">
             {children}
           </main>
         </div>

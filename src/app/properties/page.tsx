@@ -149,14 +149,14 @@ export default function PropertiesPage() {
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="code">Property Code</Label>
+                  <Label htmlFor="code">Property Code (Optional)</Label>
                   <Input
                     id="code"
                     value={formData.code}
                     onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    placeholder="e.g., PROP001"
-                    required
+                    placeholder="Leave blank to auto-generate (e.g., PROP-0001)"
                   />
+                  <p className="text-xs text-muted-foreground">Auto-generated if left blank</p>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="name">Property Name</Label>

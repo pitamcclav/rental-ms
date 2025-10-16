@@ -1,13 +1,7 @@
 {
-  "/api/units/route": "app/api/units/route.js",
-  "/api/properties/route": "app/api/properties/route.js",
-  "/api/tenants/route": "app/api/tenants/route.js",
-  "/api/payments/route": "app/api/payments/route.js",
-  "/api/payments/upcoming/route": "app/api/payments/upcoming/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/properties/page": "app/properties/page.js",
   "/units/page": "app/units/page.js",
+  "/payments/page": "app/payments/page.js",
   "/tenants/page": "app/tenants/page.js",
-  "/payments/page": "app/payments/page.js"
+  "/expenses/page": "app/expenses/page.js",
+  "/page": "app/page.js"
 }

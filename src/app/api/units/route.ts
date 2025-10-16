@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
 const unitSchema = z.object({
-  code: z.string().min(1, 'Unit code is required'),
+  code: z.string().optional(), // Auto-generated if not provided
   name: z.string().min(1, 'Unit name is required'),
   propertyId: z.string().min(1, 'Property is required'),
   rentAmount: z.number().positive('Rent amount must be positive'),
@@ -43,8 +43,30 @@ export async function POST(request: Request) {
     const body = await request.json()
     const validatedData = unitSchema.parse(body)
 
+    // Auto-generate code if not provided
+    let code = validatedData.code
+    if (!code) {
+      // Get the last unit to determine next code
+      const lastUnit = await prisma.unit.findFirst({
+        orderBy: { createdAt: 'desc' },
+        select: { code: true },
+      })
+
+      if (lastUnit) {
+        // Extract number from code like "UNIT-0001" and increment
+        const match = lastUnit.code.match(/UNIT-(\d+)/)
+        const nextNum = match ? parseInt(match[1]) + 1 : 1
+        code = `UNIT-${nextNum.toString().padStart(4, '0')}`
+      } else {
+        code = 'UNIT-0001'
+      }
+    }
+
     const unit = await prisma.unit.create({
-      data: validatedData,
+      data: {
+        ...validatedData,
+        code,
+      },
       include: {
         property: true,
       },
