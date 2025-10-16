@@ -1,0 +1,21 @@
+{
+  "/api/expenses/[id]/route": "/api/expenses/[id]",
+  "/api/expenses/route": "/api/expenses",
+  "/api/payments/[id]/route": "/api/payments/[id]",
+  "/api/payments/route": "/api/payments",
+  "/api/properties/[id]/route": "/api/properties/[id]",
+  "/api/payments/upcoming/route": "/api/payments/upcoming",
+  "/api/properties/route": "/api/properties",
+  "/api/tenants/route": "/api/tenants",
+  "/api/tenants/[id]/route": "/api/tenants/[id]",
+  "/api/units/[id]/route": "/api/units/[id]",
+  "/api/units/route": "/api/units",
+  "/favicon.ico/route": "/favicon.ico",
+  "/_not-found/page": "/_not-found",
+  "/expenses/page": "/expenses",
+  "/units/page": "/units",
+  "/properties/page": "/properties",
+  "/tenants/page": "/tenants",
+  "/payments/page": "/payments",
+  "/page": "/"
+}
